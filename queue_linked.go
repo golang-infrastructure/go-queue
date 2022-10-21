@@ -1,7 +1,5 @@
 package queue
 
-import "context"
-
 // 基于链表实现的队列
 
 type LinkedQueue[T any] struct {
@@ -32,10 +30,6 @@ func (x *LinkedQueue[T]) Put(values ...T) (err error) {
 	return nil
 }
 
-func (x *LinkedQueue[T]) BPut(ctx context.Context, value T) (err error) {
-	return ErrNotSupportOperation
-}
-
 func (x *LinkedQueue[T]) Take() (value T, err error) {
 	if x.head == nil {
 		return nil, err
@@ -49,10 +43,6 @@ func (x *LinkedQueue[T]) Take() (value T, err error) {
 		x.head = x.head.next
 	}
 	return value, nil
-}
-
-func (x *LinkedQueue[T]) BTake(ctx context.Context) (value T, err error) {
-	return nil, ErrNotSupportOperation
 }
 
 func (x *LinkedQueue[T]) Peek() (value T, err error) {
@@ -70,7 +60,7 @@ func (x *LinkedQueue[T]) IsNotEmpty() bool {
 	return x.head != nil
 }
 
-func (x *LinkedQueue[T]) Size() int {
+func (x *LinkedQueue[T]) Len() int {
 	count := 0
 	currentNode := x.head
 	for currentNode != nil {
@@ -80,8 +70,9 @@ func (x *LinkedQueue[T]) Size() int {
 	return count
 }
 
-func (x *LinkedQueue[T]) Clear() {
+func (x *LinkedQueue[T]) Clear() error {
 	x.head = nil
+	return nil
 }
 
 func (x *LinkedQueue[T]) String() string {

@@ -57,11 +57,12 @@ func (x *SynchronousQueue[T]) IsNotEmpty() bool {
 	return false
 }
 
-func (x *SynchronousQueue[T]) Size() int {
+func (x *SynchronousQueue[T]) Len() int {
 	return 0
 }
 
-func (x *SynchronousQueue[T]) Clear() {
+func (x *SynchronousQueue[T]) Clear() error {
+	return ErrNotSupportOperation
 }
 
 func (x *SynchronousQueue[T]) String() string {
