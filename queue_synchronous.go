@@ -3,6 +3,7 @@ package queue
 import "context"
 
 // 同步队列，类似于无缓冲的channel，不同的是在channel的基础上增加了超时的支持
+// 当有多个Take被阻塞时，并发的公平性与Go内置的Channel保持一致，为先来的先取到
 
 type SynchronousQueue[T any] struct {
 	noBuff chan T
