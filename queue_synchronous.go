@@ -9,7 +9,7 @@ type SynchronousQueue[T any] struct {
 	noBuff chan T
 }
 
-var _ Queue[any] = &SynchronousQueue[any]{}
+var _ BlockingQueue[any] = &SynchronousQueue[any]{}
 
 func NewSynchronousQueue[T any]() *SynchronousQueue[T] {
 	return &SynchronousQueue[T]{
