@@ -24,7 +24,7 @@ func (x *LinkedQueue[T]) Put(values ...T) (err error) {
 			x.tail = node
 		} else {
 			// 链表不为空，追加到最后即可
-			x.tail = node
+			x.tail.next = node
 		}
 	}
 	return nil
@@ -36,9 +36,10 @@ func (x *LinkedQueue[T]) Take() (value T, err error) {
 	}
 	value = x.head.value
 
-	// 取走了最后一个
+	// 链表中只有一个元素，还被取走了，此时需要将链表置为空
 	if x.head == x.tail {
 		x.tail = nil
+		x.head = nil
 	} else {
 		x.head = x.head.next
 	}
