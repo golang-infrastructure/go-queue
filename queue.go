@@ -4,7 +4,7 @@ import "context"
 
 // Queue 队列的接口定义
 type Queue[T any] interface {
-	Put(value ...T) (err error)
+	Put(values ...T) (err error)
 	BPut(ctx context.Context, value T) (err error)
 
 	Take() (value T, err error)
