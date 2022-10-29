@@ -34,7 +34,7 @@ func (x *LinkedQueue[T]) Take() (value T, err error) {
 	if x.head == nil {
 		return nil, err
 	}
-	value = x.head.value
+	head := x.head
 
 	// 链表中只有一个元素，还被取走了，此时需要将链表置为空
 	if x.head == x.tail {
@@ -43,7 +43,10 @@ func (x *LinkedQueue[T]) Take() (value T, err error) {
 	} else {
 		x.head = x.head.next
 	}
-	return value, nil
+	head.next = nil
+	value = head.value
+	head.value = nil
+	return
 }
 
 func (x *LinkedQueue[T]) Peek() (value T, err error) {
