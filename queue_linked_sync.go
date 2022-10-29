@@ -1,7 +1,6 @@
 package queue
 
 import (
-	"context"
 	"sync"
 )
 
@@ -19,30 +18,34 @@ func NewSyncLinkedQueue[T any]() *SyncLinkedQueue[T] {
 	}
 }
 
-func (x *SyncLinkedQueue[T]) Put(values ...T) (err error) {
+func (x *SyncLinkedQueue[T]) Put(values ...T) error {
 	x.lock.Lock()
 	defer x.lock.Unlock()
 	return x.queue.Put(values...)
 }
 
-func (x *SyncLinkedQueue[T]) BPut(ctx context.Context, value T) (err error) {
-	return ErrNotSupportOperation
-}
-
-func (x *SyncLinkedQueue[T]) Take() (value T, err error) {
+func (x *SyncLinkedQueue[T]) Take() T {
 	x.lock.Lock()
 	defer x.lock.Unlock()
 	return x.queue.Take()
 }
 
-func (x *SyncLinkedQueue[T]) BTake(ctx context.Context) (value T, err error) {
-	return nil, ErrNotSupportOperation
-}
-
-func (x *SyncLinkedQueue[T]) Peek() (value T, err error) {
+func (x *SyncLinkedQueue[T]) TakeE() (T, error) {
 	x.lock.Lock()
 	defer x.lock.Unlock()
+	return x.queue.TakeE()
+}
+
+func (x *SyncLinkedQueue[T]) Peek() T {
+	x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.queue.Peek()
+}
+
+func (x *SyncLinkedQueue[T]) PeekE() (T, error) {
+	x.lock.RLock()
+	defer x.lock.RUnlock()
+	return x.queue.PeekE()
 }
 
 func (x *SyncLinkedQueue[T]) IsEmpty() bool {
