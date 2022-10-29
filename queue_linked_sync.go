@@ -4,6 +4,7 @@ import (
 	"sync"
 )
 
+// SyncLinkedQueue 线程安全的链表队列
 type SyncLinkedQueue[T any] struct {
 	queue *LinkedQueue[T]
 	lock  sync.RWMutex
