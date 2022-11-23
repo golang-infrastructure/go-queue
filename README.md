@@ -2,4 +2,8 @@
 
 
 
+# 安装
+```bash
+go get -u github.com/golang-infrastructure/go-queue 
+```
 
