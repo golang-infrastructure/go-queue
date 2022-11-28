@@ -20,13 +20,12 @@ package queue
 //}
 //
 //// TODO 2022-10-29 23:10:47 检查数组大小自动扩容
-//func(x *ArrayQueue[T]) computeNextIndex() int {
+//func (x *ArrayQueue[T]) computeNextIndex() int {
 //	nextIndex :=
 //}
 //
 //func (x *ArrayQueue[T]) Put(values ...T) error {
 //	for _, value := range values {
-//
 //
 //		x.slice = append(x.slice, value)
 //		x.headIndex++
@@ -78,6 +77,16 @@ package queue
 //}
 //
 //func (x *ArrayQueue[T]) String() string {
+//	//TODO implement me
+//	panic("implement me")
+//}
+//
+//func (x *ArrayQueue[T]) MarshalJSON() ([]byte, error) {
+//	//TODO implement me
+//	panic("implement me")
+//}
+//
+//func (x *ArrayQueue[T]) UnmarshalJSON(bytes []byte) error {
 //	//TODO implement me
 //	panic("implement me")
 //}
