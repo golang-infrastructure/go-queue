@@ -1,5 +1,4 @@
-module github.com/CC11001100/go-queue
+module github.com/golang-infrastructure/go-queue
 
-go 1.19
+go 1.18
 
-require github.com/CC11001100/go-heap v0.0.1 // indirect
