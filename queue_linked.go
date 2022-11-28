@@ -108,6 +108,16 @@ func (x *LinkedQueue[T]) String() string {
 	return ""
 }
 
+func (x *LinkedQueue[T]) MarshalJSON() ([]byte, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (x *LinkedQueue[T]) UnmarshalJSON(bytes []byte) error {
+	//TODO implement me
+	panic("implement me")
+}
+
 // ------------------------------------------------ ---------------------------------------------------------------------
 
 type LinkedListNode[T any] struct {
