@@ -1,5 +1,12 @@
 package queue
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// ------------------------------------------------ LinkedQueue --------------------------------------------------------
+
 // LinkedQueue 基于链表实现的队列
 type LinkedQueue[T any] struct {
 
@@ -69,8 +76,9 @@ func (x *LinkedQueue[T]) Take() T {
 }
 
 func (x *LinkedQueue[T]) TakeE() (T, error) {
-	if x.head != nil {
-		return nil, ErrQueueEmpty
+	if x.head == nil {
+		var zero T
+		return zero, ErrQueueEmpty
 	}
 	nowHeadNode := x.head
 
@@ -98,29 +106,44 @@ func (x *LinkedQueue[T]) Peek() T {
 
 func (x *LinkedQueue[T]) PeekE() (T, error) {
 	if x.head == nil {
-		return nil, ErrQueueEmpty
+		var zero T
+		return zero, ErrQueueEmpty
 	}
 	return x.head.value, nil
 }
 
+func (x *LinkedQueue[T]) toValueSlice() []T {
+	result := make([]T, 0)
+	currentNode := x.head
+	for currentNode != nil {
+		result = append(result, currentNode.value)
+		currentNode = currentNode.next
+	}
+	return result
+}
+
 func (x *LinkedQueue[T]) String() string {
-	// TODO 2022-10-22 00:07:58
-	return ""
+	return fmt.Sprintf("%#v", x.toValueSlice())
 }
 
 func (x *LinkedQueue[T]) MarshalJSON() ([]byte, error) {
-	//TODO implement me
-	panic("implement me")
+	return json.Marshal(x.toValueSlice())
 }
 
 func (x *LinkedQueue[T]) UnmarshalJSON(bytes []byte) error {
-	//TODO implement me
-	panic("implement me")
+	slice := make([]T, 0)
+	err := json.Unmarshal(bytes, &slice)
+	if err != nil {
+		return err
+	}
+	return x.Put(slice...)
 }
 
-// ------------------------------------------------ ---------------------------------------------------------------------
+// ------------------------------------------------ LinkedListNode -----------------------------------------------------
 
 type LinkedListNode[T any] struct {
 	value T
 	next  *LinkedListNode[T]
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
