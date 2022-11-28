@@ -5,16 +5,16 @@ import (
 	"fmt"
 )
 
-// ------------------------------------------------ LinkedQueue --------------------------------------------------------
+// ------------------------------------------------ LinkedDeque --------------------------------------------------------
 
 // LinkedQueue 基于链表实现的队列
 type LinkedQueue[T any] struct {
 
 	// 队列的第一个元素
-	head *LinkedListNode[T]
+	head *LinkedQueueNode[T]
 
 	// 队列的最后一个元素
-	tail *LinkedListNode[T]
+	tail *LinkedQueueNode[T]
 }
 
 var _ Queue[any] = &LinkedQueue[any]{}
@@ -49,7 +49,7 @@ func (x *LinkedQueue[T]) Clear() error {
 
 func (x *LinkedQueue[T]) Put(values ...T) error {
 	for _, value := range values {
-		node := &LinkedListNode[T]{
+		node := &LinkedQueueNode[T]{
 			value: value,
 		}
 		// 此时链表为空
@@ -139,11 +139,11 @@ func (x *LinkedQueue[T]) UnmarshalJSON(bytes []byte) error {
 	return x.Put(slice...)
 }
 
-// ------------------------------------------------ LinkedListNode -----------------------------------------------------
+// ------------------------------------------------ LinkedDequeNode -----------------------------------------------------
 
-type LinkedListNode[T any] struct {
+type LinkedQueueNode[T any] struct {
 	value T
-	next  *LinkedListNode[T]
+	next  *LinkedQueueNode[T]
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
