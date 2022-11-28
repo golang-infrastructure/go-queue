@@ -86,7 +86,7 @@ func (x *SyncLinkedQueue[T]) MarshalJSON() ([]byte, error) {
 }
 
 func (x *SyncLinkedQueue[T]) UnmarshalJSON(bytes []byte) error {
-	x.lock.RLock()
-	defer x.lock.RUnlock()
+	x.lock.Lock()
+	defer x.lock.Unlock()
 	return x.queue.UnmarshalJSON(bytes)
 }
