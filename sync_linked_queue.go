@@ -74,6 +74,19 @@ func (x *SyncLinkedQueue[T]) Clear() error {
 }
 
 func (x *SyncLinkedQueue[T]) String() string {
-	//TODO implement me
-	panic("implement me")
+	x.lock.RLock()
+	defer x.lock.RUnlock()
+	return x.queue.String()
+}
+
+func (x *SyncLinkedQueue[T]) MarshalJSON() ([]byte, error) {
+	x.lock.RLock()
+	defer x.lock.RUnlock()
+	return x.queue.MarshalJSON()
+}
+
+func (x *SyncLinkedQueue[T]) UnmarshalJSON(bytes []byte) error {
+	x.lock.RLock()
+	defer x.lock.RUnlock()
+	return x.queue.UnmarshalJSON(bytes)
 }
